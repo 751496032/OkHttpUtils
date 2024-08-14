@@ -1,4 +1,27 @@
 
+## 接入
+
+根build.gradle添加配置：
+
+``` 
+	dependencyResolutionManagement {
+		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+		repositories {
+			mavenCentral()
+			maven { url 'https://jitpack.io' }
+		}
+	}
+
+```
+
+``` 
+
+dependencies {
+	        implementation 'com.github.751496032:OkHttpUtils:Tag'
+	}
+
+```
+
 ## post请求
 
 异步请求：
