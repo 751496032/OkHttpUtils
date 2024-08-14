@@ -1,5 +1,40 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
+}
+
+task generateSourcesJar(type: Jar){
+    from android.sourceSets.main.java.srcDirs
+    classifier  'sources'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            group = 'com.github.751496032'
+            version = '1.0.0'
+            //发布release版本
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+//                from components.release
+                //groupId通常是自己的gitee或者GitHub的账户地址
+                groupId = group
+                //artifactId通常是指待发布项目的名称，也就是别名
+                artifactId = 'OkHttpUtils'
+                //version通常是指待发布项目的版本号，这里是写死的，通常我们取项目versionName
+                version = version
+            }
+            //发布debug版本
+//            debug(MavenPublication) {
+//                // Applies the component for the release build variant.
+//                from components.debug
+//                groupId = group
+//                artifactId = 'OkHttpUtils-debug'
+//                version = version
+//            }
+        }
+    }
 }
 
 android {
@@ -13,8 +48,15 @@ android {
         consumerProguardFiles "consumer-rules.pro"
     }
 
+    publishing {
+        singleVariant("release")
+    }
     buildTypes {
         release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug{
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
