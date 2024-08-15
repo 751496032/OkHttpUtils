@@ -3,43 +3,27 @@ plugins {
     id 'maven-publish'
 }
 
-task generateSourcesJar(type: Jar){
-    from android.sourceSets.main.java.srcDirs
-    classifier  'sources'
-}
-
 afterEvaluate {
     publishing {
         publications {
-            // Creates a Maven publication called "release".
             group = 'com.github.751496032'
             version = '1.0.0'
             //发布release版本
             release(MavenPublication) {
-                // Applies the component for the release build variant.
+                // https://cloud.tencent.com/developer/ask/sof/106760110
 //                from components.release
-                //groupId通常是自己的gitee或者GitHub的账户地址
+                from components.getByName('release')
                 groupId = group
-                //artifactId通常是指待发布项目的名称，也就是别名
-                artifactId = 'OkHttpUtils'
-                //version通常是指待发布项目的版本号，这里是写死的，通常我们取项目versionName
+                artifactId = 'okhttputils'
                 version = version
             }
-            //发布debug版本
-//            debug(MavenPublication) {
-//                // Applies the component for the release build variant.
-//                from components.debug
-//                groupId = group
-//                artifactId = 'OkHttpUtils-debug'
-//                version = version
-//            }
         }
     }
 }
 
 android {
     namespace 'com.hzw.okhttputils'
-    compileSdk 34
+    compileSdk 30
 
     defaultConfig {
         minSdk 21
@@ -48,29 +32,27 @@ android {
         consumerProguardFiles "consumer-rules.pro"
     }
 
-    publishing {
-        singleVariant("release")
-    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        debug{
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
     }
 }
 
 dependencies {
 
-//    implementation 'androidx.appcompat:appcompat:1.7.0'
-//    implementation 'com.google.android.material:material:1.12.0'
+
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.12.0'
 
 }

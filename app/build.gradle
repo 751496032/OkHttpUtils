@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace 'com.hzw.demo'
-    compileSdk 34
+    compileSdk 32
 
     defaultConfig {
         applicationId "com.hzw.demo"
         minSdk 24
-        targetSdk 34
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 
