@@ -14,6 +14,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "OkHttpUtils"
+rootProject.name = "OkHttpUtilsJava"
 include ':app'
 include ':okhttputils'

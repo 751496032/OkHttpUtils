@@ -1,7 +1,6 @@
 package com.hzw.okhttputils;
 
 
-
 import com.hzw.okhttputils.request.GetRequestBuilder;
 import com.hzw.okhttputils.request.PostFileRequestBuilder;
 import com.hzw.okhttputils.request.PostRequestBuilder;
@@ -9,8 +8,8 @@ import com.hzw.okhttputils.request.RequestBuilder;
 
 import java.util.concurrent.TimeUnit;
 
-
-import okhttp3.*;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 
 /**

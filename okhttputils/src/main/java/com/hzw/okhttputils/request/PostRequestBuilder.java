@@ -4,9 +4,9 @@ package com.hzw.okhttputils.request;
 import com.hzw.okhttputils.media.MediaTypes;
 import com.hzw.okhttputils.method.Method;
 
-import okhttp3.FormBody;
 import org.json.JSONObject;
 
+import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 

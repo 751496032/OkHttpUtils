@@ -1,58 +1,65 @@
 plugins {
-    id 'com.android.library'
+    id 'java-library'
     id 'maven-publish'
 }
+// https://cloud.tencent.com/developer/article/2077115
+// 指定编码
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
 
+//指定生成的javadoc文档编码格式，防止javadoc中文乱码
+tasks.withType(Javadoc).configureEach {
+    options {
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        links "http://docs.oracle.com/javase/11/docs/api"
+    }
+}
+
+tasks.register('sourcesJar', Jar) {
+    dependsOn classes
+    archiveClassifier = 'sources'
+    from sourceSets.main.allSource
+}
+tasks.register('javadocJar', Jar) {
+    dependsOn javadoc
+    archiveClassifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+group = 'com.github.751496032'
+version = '1.0.0'
 afterEvaluate {
     publishing {
         publications {
             group = 'com.github.751496032'
             version = '1.0.0'
-            //发布release版本
             release(MavenPublication) {
-                // https://cloud.tencent.com/developer/ask/sof/106760110
-//                from components.release
-                from components.getByName('release')
-                groupId = group
-                artifactId = 'okhttputils'
-                version = version
+                from components.java
+            }
+        }
+
+        repositories {
+            maven {
+                name = "jitpack"
+                url = "https://jitpack.io"
             }
         }
     }
 }
 
-android {
-    namespace 'com.hzw.okhttputils'
-    compileSdk 30
-
-    defaultConfig {
-        minSdk 21
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-    }
-    publishing {
-        singleVariant('release') {
-            withSourcesJar()
-            withJavadocJar()
-        }
-    }
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 dependencies {
-
-
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.12.0'
-
+    implementation group: 'org.json', name: 'json', version: '20240303'
 }

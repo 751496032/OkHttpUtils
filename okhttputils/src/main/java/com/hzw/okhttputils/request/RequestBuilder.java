@@ -1,23 +1,25 @@
 package com.hzw.okhttputils.request;
 
 
-import static com.hzw.okhttputils.method.Method.DELETE;
-import static com.hzw.okhttputils.method.Method.GET;
-import static com.hzw.okhttputils.method.Method.POST;
-import static com.hzw.okhttputils.method.Method.PUT;
-
 import com.hzw.okhttputils.OkHttpUtils;
 import com.hzw.okhttputils.callback.ICallback;
 import com.hzw.okhttputils.callback.SyncResult;
 import com.hzw.okhttputils.method.Method;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.*;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * @author HZWei
