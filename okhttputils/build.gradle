@@ -4,18 +4,18 @@ plugins {
 }
 // https://cloud.tencent.com/developer/article/2077115
 // 指定编码
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
+//tasks.withType(JavaCompile) {
+//    options.encoding = "UTF-8"
+//}
 
 //指定生成的javadoc文档编码格式，防止javadoc中文乱码
-tasks.withType(Javadoc).configureEach {
-    options {
-        encoding "UTF-8"
-        charSet 'UTF-8'
-        links "http://docs.oracle.com/javase/11/docs/api"
-    }
-}
+//tasks.withType(Javadoc).configureEach {
+//    options {
+//        encoding "UTF-8"
+//        charSet 'UTF-8'
+//        links "http://docs.oracle.com/javase/11/docs/api"
+//    }
+//}
 
 tasks.register('sourcesJar', Jar) {
     dependsOn classes
@@ -30,16 +30,16 @@ tasks.register('javadocJar', Jar) {
 
 artifacts {
     archives sourcesJar
-    archives javadocJar
+//    archives javadocJar
 }
 
 group = 'com.github.751496032'
-version = '1.0.0'
+version = '1.0.1'
 afterEvaluate {
     publishing {
         publications {
             group = 'com.github.751496032'
-            version = '1.0.0'
+            version = '1.0.1'
             release(MavenPublication) {
                 from components.java
             }
