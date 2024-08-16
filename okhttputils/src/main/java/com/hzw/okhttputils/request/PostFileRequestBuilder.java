@@ -56,7 +56,8 @@ public class PostFileRequestBuilder extends RequestBuilder {
         // file一定要放在最后，否则会导致文件上传失败
         String key = fileKey == null ? "file" : fileKey;
         multipartBuilder.addFormDataPart(key, file.getName(),
-                RequestBody.create(MediaTypes.MEDIA_TYPE_MULTIPART_FORM, file));
+                RequestBody.Companion.create(file, MediaTypes.MEDIA_TYPE_MULTIPART_FORM));
+
 
         CountingRequestBody body = new CountingRequestBody(multipartBuilder.build(), this.listener);
         return buildRequestWithBody(builder, body, Method.POST);
